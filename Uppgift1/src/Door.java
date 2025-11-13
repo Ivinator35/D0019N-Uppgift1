@@ -2,13 +2,15 @@
 public class Door {
     private Room nextRoom;
     private String direction;
+    private boolean isLocked;
 
-    public Door(String direction, Room nextRoom){
+    public CreateDoor(String direction, boolean isLocked){
         this.direction = direction;
-        this.nextRoom = nextRoom;
+        this.isLocked = isLocked;
     }
 
     public Room getNextRoom(){
         return nextRoom;
     }
+
 }
