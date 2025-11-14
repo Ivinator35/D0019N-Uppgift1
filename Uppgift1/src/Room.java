@@ -1,4 +1,4 @@
-public class Room {
+/*public class Room {
 
     private String roomDesc;
     private Door north, south, west, east;
@@ -53,4 +53,13 @@ public class Room {
 
         }
     }
+
+    public void doNarrative(){
+        System.out.println(roomDesc);
+        if (this.north != null){ System.out.println("Det finns en dörr åt norr");    }
+        if (this.south != null){ System.out.println("Det finns en dörr åt söder");    }
+        if (this.east != null){ System.out.println("Det finns en dörr åt öst");    }
+        if (this.west != null){ System.out.println("Det finns en dörr åt väst");    }
+    }
 }
+*/
