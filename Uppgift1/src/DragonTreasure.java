@@ -37,9 +37,11 @@ public class DragonTreasure{
     public void playGame() {
         boolean playing = true;
         while (playing) {
+            // toLowerCase används för att alla kommandon ska funka
             System.out.print("Vilken dörr väljer du? > ");
             String command = input.nextLine().toLowerCase();
 
+            // "==" fungerade inte så behövde använda ".equals()"
             if (command.equals("q")) {
                 System.out.println("Spelet avslutas!");
                 playing = false;
