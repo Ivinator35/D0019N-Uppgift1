@@ -10,8 +10,9 @@ public class Monster {
         this.DMG = 1;
     }
 
-    public Monster(String name, int HP, int DMG){
+    public Monster(String name, String monsterDesc, int HP, int DMG){
         this.name = name;
+        this.monsterDesc = monsterDesc;
         this.HP = HP;
         this.DMG = DMG;
     }
@@ -22,6 +23,5 @@ public class Monster {
     public int getHP(){return HP;}
     public void setHP(int HP){this.HP = HP;}
 
-    public void setMonsterDesc(String monsterDesc){this.monsterDesc = monsterDesc;}
     public String getMonsterDesc() {return monsterDesc;}
 }

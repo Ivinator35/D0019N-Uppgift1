@@ -17,7 +17,7 @@ public class Player {
     public Player(String name, Room1 startRoom) {
         this.playerName = name;
         this.currentRoom = startRoom;
-        this.playerHP = 10;
+        this.playerHP = 9;
         this.maxPlayerHP = 10;
         this.playerDMG = 1;
     }
@@ -46,9 +46,13 @@ public class Player {
             item.removeStatIncrease(this);
             inventory.remove(item);
         }
+        else {
+            inventory.remove(item);
+        }
     }
 
     public Room1 getCurrentRoom() {return this.currentRoom;   }
+
 
     public void playerPotionCheck(){
         boolean potionTemp = false;

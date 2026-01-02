@@ -74,8 +74,8 @@ public class Room1 {
         }
     }
 
-    public void addMonster(String name, int HP, int DMG){
-        Monster NewMonster = new Monster(name, HP, DMG);
+    public void addMonster(String name, String desc, int HP, int DMG){
+        Monster NewMonster = new Monster(name, desc, HP, DMG);
         monsters.add(NewMonster);
     }
 

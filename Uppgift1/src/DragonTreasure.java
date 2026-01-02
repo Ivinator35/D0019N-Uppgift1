@@ -26,10 +26,10 @@ public class DragonTreasure{
         rum1.addPotion("Pungalo Potion", 4);
         rum1.addPotion("Pungalo Potion Tjack edition", 4);
         rum2.addKey("gargamel Key + taint stank");
-        rum2.addMonster("Gargamel", 10, 2);
-        rum2.addMonster("Gammelsmurfen", 2, 1);
+        rum2.addMonster("Gammelsmurfen", "Gammelsmurf descriptyion", 2, 1);
 
         rum1.addWeapon("Excalibur", 2);
+
 
         // Välkomstmeddelande och skapande av spelare
         System.out.println("Välkommen till Dragon Treasure");
