@@ -17,10 +17,19 @@ public class DragonTreasure{
 
         // Skapar dörrar/"exits"
         entre.setExits("n", rum1, false);
-        rum1.setExits("n", rum2, false);
+        rum1.setExits("n", rum2, true);
 
         // lägger till rum i en ArrayList, ingen använding än så länge men var noterat i uppgiften
         Collections.addAll(rooms, entre, rum1, rum2);
+
+        rum1.addKey("pungalo");
+        rum1.addPotion("Pungalo Potion", 4);
+        rum1.addPotion("Pungalo Potion Tjack edition", 4);
+        rum2.addKey("gargamel Key + taint stank");
+        rum2.addMonster("Gargamel", 10, 2);
+        rum2.addMonster("Gammelsmurfen", 2, 1);
+
+        rum1.addWeapon("Excalibur", 2);
 
         // Välkomstmeddelande och skapande av spelare
         System.out.println("Välkommen till Dragon Treasure");
@@ -30,25 +39,46 @@ public class DragonTreasure{
 
         System.out.println("Välkommen " + player.getPlayerName() + " använd [n],[s],[e],[w] för att navigera i grottan.");
         System.out.println("Skriv [q] för att avsluta spelet.");
+        System.out.println("------------------ Start ------------------");
         entre.doNarrative();
     }
 
     // While loop som kör spelet, anropar metoden move() om input inte är "q"
     public void playGame() {
+        int moves = 0;
         boolean playing = true;
-        while (playing) {
+        while (playing && player.getPlayerHP() > 0) {
+            moves = moves +1;
             // toLowerCase används för att alla kommandon ska funka
-            System.out.print("Vilken dörr väljer du? > ");
+            System.out.print("Vad väljer du? > ");
             String command = input.nextLine().toLowerCase();
 
             // "==" fungerade inte så behövde använda ".equals()"
             if (command.equals("q")) {
                 System.out.println("Spelet avslutas!");
                 playing = false;
+            } else if (player.getCurrentRoom().getItems().size() > 0) {
+                if (command.equals("p")) {
+                    for (Item item : player.getCurrentRoom().getItems()){
+                        player.addItem(item);
+                    }
+                    System.out.println("Du plockade upp "+ player.getCurrentRoom().getItems().size() + "x föremål");
+
+                    player.getCurrentRoom().clearItems();
+                    player.getCurrentRoom().doNarrative();
+
+                }
+                else {
+                    System.out.println("------------------ Val "+ moves + " ------------------");
+                    player.move(command);
+                }
             } else {
+                System.out.println("------------------ Val "+ moves + " ------------------");
                 player.move(command);
+
             }
         }
+        System.out.println("\nDu förlorade!! x9 axaxaxaxaaa, spelets avslutas");
     }
 
     public void printDragonTreasure(){
