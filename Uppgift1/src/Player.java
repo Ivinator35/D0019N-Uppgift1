@@ -9,9 +9,7 @@ public class Player {
     private int playerHp = 10;
     private int playerDmg = 1;
 
-    private ArrayList<Item> potionInv = new ArrayList<Item>();
     private Item currentWeapon;
-    private ArrayList<Item> weaponInv = new ArrayList<Item>();
     private ArrayList<Item> playerInv = new ArrayList<Item>();
 
     // konstruktor för spelar klassen, tar namn och rum man börjar i
@@ -43,6 +41,8 @@ public class Player {
     public void move(String dir){
         // skapar ett rums variabel och hämtar nästa rum från dörren i riktningen "dir"
         Room1 nextRoom = currentRoom.getExit(dir);
+        String command;
+
         if (nextRoom != null && !currentRoom.checkLock(dir)){
             // Om det finns en dörr/rum åt riktningen "dir" och dörren inte är låst
             // ändra currentRoom till nextRoom och skriv ut nextRoom "Narrative"
@@ -55,6 +55,26 @@ public class Player {
             }
             currentRoom = nextRoom;
             nextRoom.doNarrative();
+
+            if (!nextRoom.getRoomItems().isEmpty()) {
+                System.out.println("Vill du plocka upp föremålen, tryck 'p'");
+                command = this.input.nextLine().toLowerCase();
+                
+                if (command.equals("p")) {
+                    for (Item item : nextRoom.getRoomItems()) {
+                        switch (item.getItemID()) {
+                            case 1:
+                                addWeapon(item);
+                                break; 
+                            case 2:
+                                addPotion(item);
+                                break;
+                            case 3:
+                                        
+            }
+        }
+                }
+            }
         } else if (nextRoom != null && currentRoom.checkLock(dir)) {
             // använder metod checkLock för se om dörren är låst och skriver meddelande om sant
             System.out.println("Dörren är låst");
