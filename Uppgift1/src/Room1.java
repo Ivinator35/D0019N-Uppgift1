@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Room1 {
@@ -5,6 +6,9 @@ public class Room1 {
 
     // Skapar en HashMap för att koppla ett rums riktningar till en dörr
     private HashMap<String, Door> roomExits = new HashMap<String, Door>();
+
+    private ArrayList<Item> roomItems = new ArrayList<Item>();
+
 
     // konstruktor för Room tar endast rumsbeskrivning
     public Room1(String roomDesc){
@@ -69,4 +73,16 @@ public class Room1 {
             default: return null;
         }
     }
+
+    public void addItems(Item item) {
+        roomItems.add(item);
+    }
+
+    public void showItems() {
+        for (Item item : roomItems) {
+            System.out.println(item.getItemDesc());
+        }
+    }
+
+    
 }

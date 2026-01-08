@@ -19,6 +19,8 @@ public class DragonTreasure{
         entre.setExits("n", rum1, false);
         rum1.setExits("n", rum2, false);
 
+        
+
         // lägger till rum i en ArrayList, ingen använding än så länge men var noterat i uppgiften
         Collections.addAll(rooms, entre, rum1, rum2);
 
@@ -50,6 +52,7 @@ public class DragonTreasure{
             }
         }
     }
+    
 
     public void printDragonTreasure(){
         System.out.println(
