@@ -124,10 +124,8 @@ public class Room1 {
             switch (item.getItemID()) {
                 case 1:
                     player.addWeapon(item);
-                    break; 
                 case 2:
                     player.addPotion(item);
-                    break; 
             }
         }
     }
