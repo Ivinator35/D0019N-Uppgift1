@@ -4,8 +4,9 @@ abstract class Item {
     private int itemID;
     private int amp;
 
-    public Item(String name) {
+    public Item(String name, String desc) {
         this.itemName = name;
+        this.setItemDesc(desc);
     }
 
     public String getItemName(){

@@ -3,12 +3,13 @@ import java.util.HashMap;
 
 public class Room1 {
     private String roomDesc;
+    private Monster monster;
 
     // Skapar en HashMap för att koppla ett rums riktningar till en dörr
     private HashMap<String, Door> roomExits = new HashMap<String, Door>();
 
     private ArrayList<Item> roomItems = new ArrayList<Item>();
-    private ArrayList<Monster> roomMonsters = new ArrayList<Monster>();
+
 
 
     // konstruktor för Room tar endast rumsbeskrivning
@@ -43,9 +44,31 @@ public class Room1 {
         return door.getLock();
     }
 
-    public void doBattle(Player player){
-        ArrayList<Monster> tempMonsters = new ArrayList<>(roomMonsters);
+    public void addMonster(String name, String desc, int HP, int DMG, boolean isBoss){
+        this.monster = new Monster(name, desc, HP, DMG, isBoss);
+    }
 
+    public Monster getMonster(){return monster;}
+
+    // Vi antar att det bara kan vara ett monster per rum
+    public void doBattle(Player player){
+            System.out.println(monster.getName() + " har kommit!");
+            System.out.println(monster.getMonsterDesc() +"\n");
+            while (monster.getHP() > 0 && player.getPlayerHP() > 0){
+                monster.setHP(monster.getHP() - player.getPlayerDMG());
+                System.out.println(player.getPlayerName() + " attackerar " + monster.getName() + " och gör "+ player.getPlayerDMG()+ " DMG");
+                if (monster.getHP() <= 0){
+                    System.out.println(monster.getName() + " har blivit besegrad!");
+                    this.monster = null;
+                    break;
+                }
+                player.setPlayerHP(player.getPlayerHP() - monster.getDMG());
+                System.out.println(monster.getName() + " attakerar dig och gör, " + monster.getDMG() + " DMG");
+                if (player.getPlayerHP() <= 0){
+                    System.out.println("Du har blivit besegrad!");
+                    break;
+                } else {System.out.println("Du har " + player.getPlayerHP() + " HP kvar");}
+            }
     }
 
     // skriver ut rumsbeskrivningar och rummets dörrar

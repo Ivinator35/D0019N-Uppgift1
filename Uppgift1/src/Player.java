@@ -32,6 +32,8 @@ public class Player {
         return this.playerDmg;
     }
 
+    public void setPlayerHP(int hp) {this.playerHp = hp;}
+
     public void setCurrentRoom(Room1 room){this.currentRoom = room;}
 
     public Room1 getCurrentRoom(){return currentRoom;}
@@ -43,8 +45,13 @@ public class Player {
         if (nextRoom != null && !currentRoom.checkLock(dir)){
             // Om det finns en dörr/rum åt riktningen "dir" och dörren inte är låst
             // ändra currentRoom till nextRoom och skriv ut nextRoom "Narrative"
-            currentRoom = nextRoom;
-            nextRoom.doNarrative();
+            if (nextRoom.getMonster() != null){
+                nextRoom.doBattle(this);
+            }
+            if (this.playerHp > 0){
+                currentRoom = nextRoom;
+                nextRoom.doNarrative();
+            }
         } else if (nextRoom != null && currentRoom.checkLock(dir)) {
             // använder metod checkLock för se om dörren är låst och skriver meddelande om sant
             System.out.println("Dörren är låst");

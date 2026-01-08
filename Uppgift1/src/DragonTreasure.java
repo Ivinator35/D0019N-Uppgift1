@@ -19,6 +19,9 @@ public class DragonTreasure{
         entre.setExits("n", rum1, false);
         rum1.setExits("n", rum2, false);
 
+        rum2.addMonster("gargamel", "SMurftrollkarlen", 8, 1, false);
+
+
         
 
         // lägger till rum i en ArrayList, ingen använding än så länge men var noterat i uppgiften
@@ -37,7 +40,7 @@ public class DragonTreasure{
 
     // While loop som kör spelet, anropar metoden move() om input inte är "q"
     public void playGame() {
-        while (true) {
+        while (true && player.getPlayerHP() > 0) {
             // toLowerCase används för att alla kommandon ska funka
             System.out.print("Vilken dörr väljer du? > ");
             String command = input.nextLine().toLowerCase();
