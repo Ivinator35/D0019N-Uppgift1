@@ -41,6 +41,25 @@ public class Player {
 
     public Room1 getCurrentRoom(){return currentRoom;}
 
+    // metod för att kolla om spelare har nyckel
+    public boolean checkInvKey(){
+        for (Item item : this.playerInv) {
+            if (item.getItemID() == 3) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void removeAKey(){
+        for (Item item : this.playerInv) {
+            if (item.getItemID() == 3) {
+                this.playerInv.remove(item);
+                break;
+            }
+        }
+    }
+
     // metod för att flytta en spelare mellan rum
     public void move(String dir){
         // skapar ett rums variabel och hämtar nästa rum från dörren i riktningen "dir"
@@ -52,29 +71,32 @@ public class Player {
             // ändra currentRoom till nextRoom och skriv ut nextRoom "Narrative"
             if (nextRoom.getMonster() != null){
                 nextRoom.doBattle(this);
+                if (this.playerHp > 0){
+                    currentRoom = nextRoom;
+                    nextRoom.doNarrative();
+                }
             }
-            if (this.playerHp > 0){
+            else{
                 currentRoom = nextRoom;
                 nextRoom.doNarrative();
             }
-            currentRoom = nextRoom;
-            nextRoom.doNarrative();
-
             
         } else if (nextRoom != null && currentRoom.checkLock(dir)) {
             // använder metod checkLock för se om dörren är låst och skriver meddelande om sant
             System.out.println("Dörren är låst");
-            boolean temp = true; // ersätt med metod för att se om player har nyckel
-            if (temp == true){
+            //boolean temp = true; // ersätt med metod för att se om player har nyckel
+            if (checkInvKey()){
                 System.out.print("Du har en nyckel som kan öppna dörren, vill du använda den? [Y/N] > ");
                 command = input.nextLine().toLowerCase();
                 if (command.equals("y")){
                     // lägg in -- Remove key from inventory
+                    removeAKey();
                     currentRoom.unlockDoors(dir);
                     move(dir);
                 }
+                else {currentRoom.doNarrative();}
             }
-            currentRoom.doNarrative();
+
         } else {
             // skrivs ut om det inte finns någon dörr eller om man skrivit något annat än n,s,e eller w
             System.out.println("Du kan inte gå i denna riktning!");
@@ -140,7 +162,7 @@ public class Player {
                     case 2: 
                         if (this.playerHp + input.getAmp() > 10) {
                             this.playerHp = 10;
-                            System.out.println("Du fick tillbaka " + (10 - this.playerHp) + " HP.");
+                            System.out.println("Du är tillbaka till max HP!: " + this.playerHp);
                         } else {
                             this.playerHp = this.playerHp + input.getAmp();
                             System.out.println("Du fick tillbaka " + input.getAmp() + " HP.");
@@ -175,8 +197,8 @@ public class Player {
                 case 4:
                     addItem(item);
                     break;
-            }
-        }
+                        }
+                    }
 
         room.removeItems();
     }

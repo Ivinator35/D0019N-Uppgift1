@@ -8,6 +8,62 @@ public class DragonTreasure{
     private Scanner input = new Scanner(System.in);
     private ArrayList<Room1> rooms = new ArrayList<Room1>();
 
+    public void setupGame2(){
+        //skapar rum ur klassen Room1
+        Room1 entre = new Room1("Grottöppning\nDu står framför ett berg med en grottöppning.");
+        Room1 rum1 = new Room1("Rum1\nDet består endast av sten och är helt tomt.");
+        Room1 rum2 = new Room1("Rum2\nDet ligger ett förmultnat skelett i hörnet av rummet.");
+        Room1 rum3 = new Room1("Rum3\nDet står en tyst tjomme i rummets hörn och stirrar.");
+        Room1 rum4 = new Room1("Rum4\nRummet stinker av gargamels urin, det fanns ingen toa:(, vad vaktade han?");
+        Room1 rum5 = new Room1("Rum5\nRummet har en pedestal med plats för ett föremål.");
+        Room1 rum6 = new Room1("Rum6\nI mitten av rummet finns en stor sten!");
+        Room1 drakRummet = new Room1("Drakrummet\nFyfan vad drakens lik stinker, dags att dipp me guldet! ");
+
+
+        // Skapar dörrar/"exits"
+        entre.setExits("e", rum1, false);
+        rum1.setExits("n", rum2, true);
+        rum1.setExits("s", rum3, false);
+        rum2.setExits("e", rum4, false);
+        rum4.setExits("e", rum5, false);
+        rum4.setExits("s", rum6, true);
+        rum6.setExits("e", drakRummet, false);
+
+        //skapar monster
+        rum4.addMonster("Gargamel", "Smurftrollkarlen1337 aka Gargamel skriker nått strunt å börjar jiddra", 8, 2, false);
+        drakRummet.addMonster("Draken",printDragon, 15, 3, true);
+
+        //Skapar föremål
+        Key merchantKey = new Key("Grottnyckel", "Tjackisen kastar ut något på golvet, en nyckel till gullmarsplanstoaletter!.");
+        Weapon skelettSvärd = new Weapon("Svärd", "I skelettets bröst sitter ett svärd.", 3);
+        Potion gargamelPotion = new Potion("GargaPotion", "En dryck rullar ut från Gargamelskropp", 6);
+        Key draknyckeln = new Key("Draknyckeln", "På podiumet sitter en nyckel som ser ut som en drake.");
+        Weapon excalibur = new Weapon("Excalibur", "I stenen sitter ett svärd som ser tvär op ut", 4);
+        Treasure drakskatten = new Treasure("Drakskatten", "Du har dräpt draken och kan nu stjäla allt hans skit");
+
+        // lägger till föremål i rum
+        rum3.addItems(merchantKey);
+        rum2.addItems(skelettSvärd);
+        rum4.addItems(gargamelPotion);
+        rum5.addItems(draknyckeln);
+        rum6.addItems(excalibur);
+        drakRummet.addItems(drakskatten);
+
+
+        // lägger till rum i en ArrayList, ingen använding än så länge men var noterat i uppgiften
+        Collections.addAll(rooms, entre, rum1, rum2, rum3, rum4, rum5, rum6, drakRummet);
+
+        // Välkomstmeddelande och skapande av spelare
+        System.out.println("Välkommen till Dragon Treasure");
+        System.out.print("Skriv ditt namn: ");
+        String name = input.nextLine();
+        player = new Player(name, entre);
+
+        System.out.println("Välkommen " + player.getPlayerName() + " använd [n],[s],[e],[w] för att navigera i grottan.");
+        System.out.println("Skriv [q] för att avsluta spelet.");
+        entre.doNarrative();
+    }
+
     // metod för att skapa rum, dörrar och spelare
     public void setupGame() {
         //Skapar rum ur klassen Room1
@@ -52,15 +108,15 @@ public class DragonTreasure{
 
         while (player.getPlayerHP() > 0) {
             if (!player.getCurrentRoom().getRoomItems().isEmpty()) {
-                System.out.println("Vill du plocka upp föremålen, tryck 'p'");
+                System.out.print("Vill du plocka upp föremålen, tryck 'p' > ");
                 command = this.input.nextLine().toLowerCase();
-                
                 if (command.equals("p")) {
                     player.pickupItems(player.getCurrentRoom());
-                } else if (command.equals("q")) {
+                    System.out.println("");
+                } /* else if (command.equals("q")) {
                 System.out.println("Spelet avslutas!");
                 break;
-                }
+                }*/
             }
 
             // toLowerCase används för att alla kommandon ska funka
@@ -112,8 +168,8 @@ public class DragonTreasure{
                 "           '-.||_/.-'\n");
     }
 
-    public void printDragon(){
-        System.out.println(
+    public String printDragon =
+
                 "                                                  .~))>>\n"+
                 "                                                 .~)>>\n"+
                 "                                               .~))))>>>\n"+
@@ -146,7 +202,7 @@ public class DragonTreasure{
                 "                                  ((((          __.-~bb.-~\n"+
                 "                                              .'  b .~~\n"+
                 "                                              :bb ,' \n"+
-                "                                              ~~~~\n");
-    }
+                "                                              ~~~~\n";
+
 
 }

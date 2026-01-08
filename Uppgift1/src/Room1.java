@@ -84,6 +84,11 @@ public class Room1 {
     public void doNarrative(){
         System.out.println(" ");
         System.out.println(roomDesc);
+        if (!roomItems.isEmpty()) {
+            for (Item item : roomItems) {
+                System.out.println(item.getItemDesc());
+            }
+        }
         // for loop för att skriva ut alla riktningar med olåsta dörrar ur HashMapen
         for (String dir : roomExits.keySet()) {
             if (checkLock(dir) == false){
@@ -97,11 +102,6 @@ public class Room1 {
             }
         }
 
-        if (!roomItems.isEmpty()) {
-            for (Item item : roomItems) {
-                System.out.println(item.getItemDesc());
-            }
-        }
         System.out.println(" ");
 
     }
