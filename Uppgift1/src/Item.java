@@ -1,7 +1,7 @@
 abstract class Item {
-    protected String itemName;
-    protected String itemDesc;
-    protected int itemID;
+    private String itemName;
+    private String itemDesc;
+    private int itemID;
     private int amp;
 
     public Item(String name) {
