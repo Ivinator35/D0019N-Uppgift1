@@ -65,8 +65,8 @@ public class Player {
                     currentRoom.unlockDoors(dir);
                     move(dir);
                 }
+                else{currentRoom.doNarrative();}
             }
-            currentRoom.doNarrative();
         } else {
             // skrivs ut om det inte finns någon dörr eller om man skrivit något annat än n,s,e eller w
             System.out.println("Du kan inte gå i denna riktning!");
