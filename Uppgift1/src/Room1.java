@@ -34,6 +34,13 @@ public class Room1 {
         return door.getNextRoom();
     }
 
+    public void unlockDoors(String dir){
+        if (roomExits.get(dir) != null) {
+            roomExits.get(dir).unlock();
+            this.getExit(dir).roomExits.get(oppositeDir(dir)).unlock();
+        }
+    }
+
     // "Getter" som kollar om en dörr i en specifik riktning är låst,
     // krävdes felhantering för null returns
     public boolean checkLock(String dir){

@@ -17,7 +17,7 @@ public class DragonTreasure{
 
         // Skapar dörrar/"exits"
         entre.setExits("n", rum1, false);
-        rum1.setExits("n", rum2, false);
+        rum1.setExits("n", rum2, true);
 
         rum2.addMonster("gargamel", "SMurftrollkarlen", 8, 1, false);
 
