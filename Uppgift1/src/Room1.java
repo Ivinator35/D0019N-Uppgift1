@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.lang.Thread;
 
 public class Room1 {
     private String roomDesc;
@@ -83,17 +84,29 @@ public class Room1 {
                     System.out.println("Du har blivit besegrad!");
                     break;
                 } else {System.out.println("Du har " + player.getPlayerHP() + " HP kvar");}
+                
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
     }
 
     // skriver ut rumsbeskrivningar och rummets dörrar
-    public void doNarrative(){
+    public void doNarrative() {
         System.out.println(" ");
         System.out.println(roomDesc);
         if (!roomItems.isEmpty()) {
             for (Item item : roomItems) {
                 System.out.println(item.getItemDesc());
             }
+        }
+        //thread.sleep för att sakta ner outputen
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
         // for loop för att skriva ut alla riktningar med olåsta dörrar ur HashMapen
         for (String dir : roomExits.keySet()) {

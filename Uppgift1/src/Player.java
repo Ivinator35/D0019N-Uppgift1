@@ -67,7 +67,7 @@ public class Player {
         String command;
         // Om det finns en dörr/rum åt riktningen "dir" och dörren inte är låst
         if (nextRoom != null && !currentRoom.checkLock(dir)){
-            // Kollar om det finns ett monster i rummet och kör doBattle om det finns
+            //Kollar om rummet har ett monster i sig och isåfall startar den en strid
             if (nextRoom.getMonster() != null){
                 nextRoom.doBattle(this);
                 if (this.playerHp > 0){
@@ -76,7 +76,7 @@ public class Player {
                     nextRoom.doNarrative();
                 }
             } else{
-                // ändra currentRoom till nextRoom och skriv ut nextRooms "Narrative"
+                // ändra currentRoom till nextRoom och skriv ut nextRoom "Narrative"
                 currentRoom = nextRoom;
                 nextRoom.doNarrative();
             }
@@ -116,10 +116,9 @@ public class Player {
             this.currentWeapon = weapon; 
         } else {
             playerInv.add(weapon);
-            System.out.println("Du fick ett nytt vapen. För att byta till det tryck 'i'."); 
+            System.out.println("Du fick ett nytt vapen. För att byta till det tryck [i]."); 
         }
     }
-
     // Metod för att kolla sin spelares inventory
     public void checkWeaponInv() {
         int i = 0;
@@ -136,23 +135,19 @@ public class Player {
                 case 2:
                     System.out.println(i + ". " + item.getItemName() + " HP: " + item.getAmp());
                     break;
-                case 3:
+                default:
                     System.out.println(i + ". " + item.getItemName());
-                    break;
-                case 4:
-                    System.out.println(i + ". " + item.getItemName());
-                    break;
+                    
             }
             
         }
         System.out.println("Skriv nummret för de föremål du vill använda");
-
         // fel hantering med try cath om man valt något som är utanför inventory size
         try {
             command = this.input.nextInt();
             
             if (command > playerInv.size()) {
-                System.out.println("Du har inte så många vapen!");
+                System.out.println("Du har inte så många grejer!");
             } else {
                 input = playerInv.get(command - 1);
                 // Switch för de olika typer av föremålen
@@ -176,7 +171,7 @@ public class Player {
                         System.out.println(i + ". För att använda nyckeln, hitta en låst dörr." );
                         break; 
                     case 4:
-                        System.out.println(i + ". Grattis, du har hittat en skatt!" );
+                        System.out.println(i + ". Grattis, du har hittat en skatt! Försök hitta ut nu!" );
                         break; 
                 }
             }
@@ -186,26 +181,19 @@ public class Player {
         }
 
     }
-
-    // Metod för att plocka upp items, än igen med switch case då föremål behandlas olika nör spelare tar upp dem
+// Metod för att plocka upp items, än igen med switch case då föremål behandlas olika nör spelare tar upp dem
     // Tar även bort items ur rummet när det lagts till i inventoryt
     public void pickupItems(Room1 room) {
         for (Item item : room.getRoomItems()) {
             switch (item.getItemID()) {
                 case 1:
-                    addWeapon(item);
+                    addWeapon(item);                    
                     break; 
-                case 2:
+                default:
                     addItem(item);
-                    break;
-                case 3:
-                    addItem(item);
-                    break;
-                case 4:
-                    addItem(item);
-                    break;
-                        }
-                    }
+            }
+            System.out.println("Du plockade upp '" + item.getItemName() + "'");
+        }
 
         room.removeItems();
     }

@@ -9,7 +9,7 @@ public class DragonTreasure{
     private ArrayList<Room1> rooms = new ArrayList<Room1>();
 
     // metod för att skapa rum, dörrar och spelare
-    public void setupGame(){
+    public void setupGame() throws InterruptedException{
         //skapar rum ur klassen Room1
         Room1 entre = new Room1("Grottöppning\nDu står framför ett berg med en grottöppning.");
         Room1 rum1 = new Room1("Rum1\nDet består endast av sten och är helt tomt.");
@@ -67,7 +67,7 @@ public class DragonTreasure{
 
     // While loop som kör spelet, anropar metoden move() om input inte är "q"
     // kollar även så att man inte loopar igen om spelaren har <= 0 HP
-    public void playGame() {
+    public void playGame() throws InterruptedException {
         String command;
         Room1 startingRoom = player.getCurrentRoom();
         while (player.getPlayerHP() > 0) {
