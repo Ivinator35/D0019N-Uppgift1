@@ -8,6 +8,7 @@ public class Room1 {
     private HashMap<String, Door> roomExits = new HashMap<String, Door>();
 
     private ArrayList<Item> roomItems = new ArrayList<Item>();
+    private ArrayList<Monster> roomMonsters = new ArrayList<Monster>();
 
 
     // konstruktor för Room tar endast rumsbeskrivning
@@ -40,6 +41,11 @@ public class Room1 {
             return false;
         }
         return door.getLock();
+    }
+
+    public void doBattle(Player player){
+        ArrayList<Monster> tempMonsters = new ArrayList<>(roomMonsters);
+
     }
 
     // skriver ut rumsbeskrivningar och rummets dörrar

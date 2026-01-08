@@ -18,4 +18,8 @@ public class Door {
         return isLocked;
     }
 
+    public void unlock(){
+        this.isLocked = false;
+    }
+
 }

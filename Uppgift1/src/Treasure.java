@@ -1,6 +1,6 @@
 public class Treasure extends Item{
-    public Treasure(String name, String desc){
-        super(name, desc);
+    public Treasure(String name){
+        super(name);
         this.setItemId(4);
     }
 }

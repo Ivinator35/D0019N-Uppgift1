@@ -1,12 +1,11 @@
-public class Item {
-    private String itemName;
-    private String itemDesc;
-    private int itemID;
+abstract class Item {
+    protected String itemName;
+    protected String itemDesc;
+    protected int itemID;
     private int amp;
 
-    public Item(String name, String desc) {
+    public Item(String name) {
         this.itemName = name;
-        this.itemDesc = desc;
     }
 
     public String getItemName(){
