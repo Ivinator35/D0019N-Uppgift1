@@ -15,7 +15,7 @@ public class DragonTreasure{
         Room1 rum1 = new Room1("Rum1\nDet består endast av sten och är helt tomt.");
         Room1 rum2 = new Room1("Rum2\nDet ligger ett förmultnat skelett i hörnet av rummet.");
         Room1 rum3 = new Room1("Rum3\nDet står en tyst tjomme i rummets hörn och stirrar.");
-        Room1 rum4 = new Room1("Rum4\nRummet stinker av gargamels urin, det fanns ingen toa:(, vad vaktade han?");
+        Room1 rum4 = new Room1("Rum4\nGargamels rum var mörkt och luktade unket.");
         Room1 rum5 = new Room1("Rum5\nRummet har en pedestal med plats för ett föremål.");
         Room1 rum6 = new Room1("Rum6\nI mitten av rummet finns en stor sten!");
         Room1 drakRummet = new Room1("Drakrummet\nFyfan vad drakens lik stinker, dags att dipp me guldet! ");
@@ -31,13 +31,13 @@ public class DragonTreasure{
         rum6.setExits("e", drakRummet, false);
 
         //skapar monster
-        rum4.addMonster("Gargamel", "Smurftrollkarlen1337 aka Gargamel skriker nått strunt å börjar jiddra", 8, 2, false);
+        rum4.addMonster("Gargamel", "Gargamel skricker och kastar eldbollar", 8, 2, false);
         drakRummet.addMonster("Draken",printDragon, 15, 3, true);
 
         //Skapar föremål
-        Key merchantKey = new Key("Grottnyckel", "Tjackisen kastar ut något på golvet, en nyckel till gullmarsplanstoaletter!.");
+        Key merchantKey = new Key("Grottnyckel", "Främlingen kastar ut något på golvet.");
         Weapon skelettSvärd = new Weapon("Svärd", "I skelettets bröst sitter ett svärd.", 3);
-        Potion gargamelPotion = new Potion("GargaPotion", "En dryck rullar ut från Gargamelskropp", 6);
+        Potion gargamelPotion = new Potion("Hälsodryck", "En dryck rullar ut från Gargamelskropp", 5);
         Key draknyckeln = new Key("Draknyckeln", "På podiumet sitter en nyckel som ser ut som en drake.");
         Weapon excalibur = new Weapon("Excalibur", "I stenen sitter ett svärd som ser tvär op ut", 4);
         Treasure drakskatten = new Treasure("Drakskatten", "Du har dräpt draken och kan nu stjäla allt hans skit");
@@ -73,16 +73,11 @@ public class DragonTreasure{
         while (player.getPlayerHP() > 0) {
             // kollar om det finns föremål i rummet och låter spelaren plocka upp dem
             if (!player.getCurrentRoom().getRoomItems().isEmpty()) {
-                System.out.print("Vill du plocka upp föremålen, tryck 'p' > ");
-                command = this.input.nextLine().toLowerCase();
-                if (command.equals("p")) {
-                    player.pickupItems(player.getCurrentRoom());
-                    System.out.println("");
-                }
+                System.out.print("Vill du plocka upp föremålen, tryck [p]\n");
             }
 
             // toLowerCase används för att alla kommandon ska funka
-            System.out.print("Vilken dörr väljer du? > ");
+            System.out.print("Vad gör du? > ");
             command = input.nextLine().toLowerCase();
 
             // "==" fungerade inte så behövde använda ".equals()"
@@ -94,6 +89,9 @@ public class DragonTreasure{
             else if (command.equals("i")) {
                 player.checkWeaponInv();
                 player.getCurrentRoom().doNarrative();
+            } else if (command.equals("p")) {
+                player.pickupItems(player.getCurrentRoom());
+                    System.out.println("");
             }
             // ifall det inte är "i" eller "q" körs move metoden
             else {
@@ -104,7 +102,7 @@ public class DragonTreasure{
                         if (item.getItemID() == 4) {
                             printDragonTreasure();
                             System.out.println("Du lämnar grottan med skatten. Grattis, du vann!");
-                            break;
+                            player.setPlayerHP(0);
                         }
                     }
 
