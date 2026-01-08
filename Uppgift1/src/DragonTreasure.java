@@ -21,6 +21,11 @@ public class DragonTreasure{
 
         rum2.addMonster("gargamel", "SMurftrollkarlen", 8, 1, false);
 
+        Weapon testWeapon2 = new Weapon("Yxa", "En yxa ligger på marken.", 4);
+        Potion testPotion = new Potion("Stor hälsodryck", "En dryck ligger på markenq", 6);
+        
+        entre.addItems(testPotion);
+        entre.addItems(testWeapon2);
 
         
 

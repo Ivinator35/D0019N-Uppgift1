@@ -15,10 +15,10 @@ public class Test {
         player.addWeapon(testWeapon2);
 
         Potion testPotion = new Potion("Stor hälsodryck", null, 6);
-        player.addPotion(testPotion);
+        player.addItem(testPotion);
 
         Potion testPotion2 = new Potion("Liten hälsodryck", null, 3);
-        player.addPotion(testPotion2);
+        player.addItem(testPotion2);
         
         entre.addItems(testWeapon);
         entre.addItems(testWeapon2);

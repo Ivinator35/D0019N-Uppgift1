@@ -10,7 +10,9 @@ public class Room1 {
 
     private ArrayList<Item> roomItems = new ArrayList<Item>();
 
-
+    public ArrayList<Item> getRoomItems() {
+        return this.roomItems;
+    }
 
     // konstruktor för Room tar endast rumsbeskrivning
     public Room1(String roomDesc){
@@ -97,6 +99,13 @@ public class Room1 {
 
     }
 
+    public void unlockDoors(String dir){
+        if (roomExits.get(dir) != null) {
+            roomExits.get(dir).unlock();
+            this.getExit(dir).roomExits.get(oppositeDir(dir)).unlock();
+        }
+    }
+
     // simpel string metod för att hitta motsatt riktning,
     // används för att lätt kunna skapa dörrar åt två håll
     private String oppositeDir(String dir){
@@ -126,7 +135,7 @@ public class Room1 {
                     player.addWeapon(item);
                     break; 
                 case 2:
-                    player.addPotion(item);
+                    player.addItem(item);
                     break; 
             }
         }
