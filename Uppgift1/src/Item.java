@@ -1,4 +1,5 @@
 abstract class Item {
+    // abstrakt klass då det inte ska finnas ett Item utan någon funktion
     private String itemName;
     private String itemDesc;
     private int itemID;

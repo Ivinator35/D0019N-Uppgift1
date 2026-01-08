@@ -67,7 +67,7 @@ public class Player {
         String command;
         // Om det finns en dörr/rum åt riktningen "dir" och dörren inte är låst
         if (nextRoom != null && !currentRoom.checkLock(dir)){
-            //
+            // Kollar om det finns ett monster i rummet och kör doBattle om det finns
             if (nextRoom.getMonster() != null){
                 nextRoom.doBattle(this);
                 if (this.playerHp > 0){
@@ -76,19 +76,19 @@ public class Player {
                     nextRoom.doNarrative();
                 }
             } else{
-                // ändra currentRoom till nextRoom och skriv ut nextRoom "Narrative"
+                // ändra currentRoom till nextRoom och skriv ut nextRooms "Narrative"
                 currentRoom = nextRoom;
                 nextRoom.doNarrative();
             }
         } else if (nextRoom != null && currentRoom.checkLock(dir)) {
             // använder metod checkLock för se om dörren är låst och skriver meddelande om sant
             System.out.println("Dörren är låst");
-            //boolean temp = true; // ersätt med metod för att se om player har nyckel
+            // använder metod för att se om player har nyckel och frågar om spelaren vill använda det
             if (checkInvKey()){
                 System.out.print("Du har en nyckel som kan öppna dörren, vill du använda den? [Y/N] > ");
                 command = input.nextLine().toLowerCase();
                 if (command.equals("y")){
-                    // lägg in -- Remove key from inventory
+                    // tar bort nyckeln och låser upp dörrarna och återkallar move metoden rekkursivt
                     removeAKey();
                     currentRoom.unlockDoors(dir);
                     move(dir);
@@ -104,11 +104,11 @@ public class Player {
         }
     }
 
-
+    // lägger till föremål(ex vapen) i spelarens inventory
     public void addItem(Item item) {
         playerInv.add(item);
     }
-
+    // Lägger till vapen i inventory och ändrar player dmg till vapnets
     public void addWeapon(Item weapon) {
         if (currentWeapon == null) {
             playerInv.add(weapon);
@@ -120,11 +120,13 @@ public class Player {
         }
     }
 
+    // Metod för att kolla sin spelares inventory
     public void checkWeaponInv() {
         int i = 0;
         Item input;
         int command;
-
+        // loopar igenom player inventory och skriver ut vad man har
+        // Switch används för att se vilken typ av Item det är
         for (Item item : playerInv) {
             i++;
             switch (item.getItemID()) {
@@ -144,7 +146,8 @@ public class Player {
             
         }
         System.out.println("Skriv nummret för de föremål du vill använda");
-        
+
+        // fel hantering med try cath om man valt något som är utanför inventory size
         try {
             command = this.input.nextInt();
             
@@ -152,7 +155,8 @@ public class Player {
                 System.out.println("Du har inte så många vapen!");
             } else {
                 input = playerInv.get(command - 1);
-
+                // Switch för de olika typer av föremålen
+                // Man ska kunna byta vapen och använda drycker annars skrivs bara en enkel text ut för nycklar och skatter
                 switch (input.getItemID()) {
                     case 1:
                         currentWeapon = input;
@@ -176,12 +180,15 @@ public class Player {
                         break; 
                 }
             }
+            // ifall man skriver något annat än en siffra fångas även det
         } catch(Exception e) {
             System.out.println("Skriv respektive siffra!");
         }
 
     }
 
+    // Metod för att plocka upp items, än igen med switch case då föremål behandlas olika nör spelare tar upp dem
+    // Tar även bort items ur rummet när det lagts till i inventoryt
     public void pickupItems(Room1 room) {
         for (Item item : room.getRoomItems()) {
             switch (item.getItemID()) {

@@ -8,7 +8,8 @@ public class DragonTreasure{
     private Scanner input = new Scanner(System.in);
     private ArrayList<Room1> rooms = new ArrayList<Room1>();
 
-    public void setupGame2(){
+    // metod för att skapa rum, dörrar och spelare
+    public void setupGame(){
         //skapar rum ur klassen Room1
         Room1 entre = new Room1("Grottöppning\nDu står framför ett berg med en grottöppning.");
         Room1 rum1 = new Room1("Rum1\nDet består endast av sten och är helt tomt.");
@@ -64,49 +65,13 @@ public class DragonTreasure{
         entre.doNarrative();
     }
 
-    // metod för att skapa rum, dörrar och spelare
-    public void setupGame() {
-        //Skapar rum ur klassen Room1
-        Room1 entre = new Room1("Grottöppning");
-        Room1 rum1 = new Room1("Rum1");
-        Room1 rum2 = new Room1("Rum2");
-
-
-        // Skapar dörrar/"exits"
-        entre.setExits("n", rum1, false);
-        rum1.setExits("n", rum2, true);
-
-        rum2.addMonster("gargamel", "SMurftrollkarlen", 8, 1, false);
-
-        Weapon testWeapon2 = new Weapon("Yxa", "En yxa ligger på marken.", 4);
-        Potion testPotion = new Potion("Stor hälsodryck", "En dryck ligger på markenq", 6);
-        
-        entre.addItems(testPotion);
-        entre.addItems(testWeapon2);
-
-        
-
-        // lägger till rum i en ArrayList, ingen använding än så länge men var noterat i uppgiften
-        Collections.addAll(rooms, entre, rum1, rum2);
-
-        // Välkomstmeddelande och skapande av spelare
-        System.out.println("Välkommen till Dragon Treasure");
-        System.out.print("Skriv ditt namn: ");
-        String name = input.nextLine();
-        player = new Player(name, entre);
-
-        System.out.println("Välkommen " + player.getPlayerName() + " använd [n],[s],[e],[w] för att navigera i grottan.");
-        System.out.println("Skriv [q] för att avsluta spelet.\nSkriv [i] för att öppna ditt förråd.");
-        entre.doNarrative();
-    }
-
     // While loop som kör spelet, anropar metoden move() om input inte är "q"
+    // kollar även så att man inte loopar igen om spelaren har <= 0 HP
     public void playGame() {
         String command;
-        
         Room1 startingRoom = player.getCurrentRoom();
-
         while (player.getPlayerHP() > 0) {
+            // kollar om det finns föremål i rummet och låter spelaren plocka upp dem
             if (!player.getCurrentRoom().getRoomItems().isEmpty()) {
                 System.out.print("Vill du plocka upp föremålen, tryck 'p' > ");
                 command = this.input.nextLine().toLowerCase();
@@ -124,11 +89,16 @@ public class DragonTreasure{
             if (command.equals("q")) {
                 System.out.println("Spelet avslutas!");
                 break;
-            } else if (command.equals("i")) {
+            }
+            // om använder skriver i får man se spelarens inventory
+            else if (command.equals("i")) {
                 player.checkWeaponInv();
                 player.getCurrentRoom().doNarrative();
-            } else {
+            }
+            // ifall det inte är "i" eller "q" körs move metoden
+            else {
                 player.move(command);
+                // ifall spelaren har en skatt kan hen komma ut ur spelet
                 if (player.getCurrentRoom() == startingRoom) {
                     for (Item item : player.getPlayerInv()) {
                         if (item.getItemID() == 4) {

@@ -7,6 +7,7 @@ public class Weapon extends Item{
         this.dmgAmp = dmg;
     }
 
+    // getter för AMP
     public int getAmp() {
         return this.dmgAmp;
     }

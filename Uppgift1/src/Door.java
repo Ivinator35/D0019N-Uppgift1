@@ -18,6 +18,7 @@ public class Door {
         return isLocked;
     }
 
+    // metod som låser upp dörren
     public void unlock(){
         this.isLocked = false;
     }
