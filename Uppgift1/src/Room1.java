@@ -8,8 +8,10 @@ public class Room1 {
     // Skapar en HashMap för att koppla ett rums riktningar till en dörr
     private HashMap<String, Door> roomExits = new HashMap<String, Door>();
 
+    // arraylist för att spara vilka förmål som finns i rummet
     private ArrayList<Item> roomItems = new ArrayList<Item>();
 
+    // getter för att se vilka items som finns i rummet
     public ArrayList<Item> getRoomItems() {
         return this.roomItems;
     }
@@ -36,6 +38,7 @@ public class Room1 {
         return door.getNextRoom();
     }
 
+    // låser upp "en" dörr i båda riktningar med felhantering för null returns
     public void unlockDoors(String dir){
         if (roomExits.get(dir) != null) {
             roomExits.get(dir).unlock();
@@ -53,13 +56,16 @@ public class Room1 {
         return door.getLock();
     }
 
+    // tilldelar ett monster till rummets tomma monster variabel
     public void addMonster(String name, String desc, int HP, int DMG, boolean isBoss){
         this.monster = new Monster(name, desc, HP, DMG, isBoss);
     }
 
+    // getter för monster variabeln
     public Monster getMonster(){return monster;}
 
     // Vi antar att det bara kan vara ett monster per rum
+    // doBattle är byygd på en While loop som körs till antingen players eller monster HP är 0 eller mindre
     public void doBattle(Player player){
             System.out.println("\n" + monster.getName() + " har kommit!");
             System.out.println(monster.getMonsterDesc() +"\n");
@@ -118,16 +124,12 @@ public class Room1 {
         }
     }
 
+    // metod för att lägga till föremål
     public void addItems(Item item) {
         roomItems.add(item);
     }
 
-    public void showItems() {
-        for (Item item : roomItems) {
-            System.out.println(item.getItemDesc());
-        }
-    }
-
+    // metod som tarbort föremål
     public void removeItems() {
         this.roomItems.clear();
     }

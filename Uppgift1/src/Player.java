@@ -31,17 +31,16 @@ public class Player {
         return this.playerDmg;
     }
 
+    // används för att kunna se inventory utanför klassen, behövs i bla dragonTreasure
     public ArrayList<Item> getPlayerInv() {
         return this.playerInv;
     }
 
     public void setPlayerHP(int hp) {this.playerHp = hp;}
 
-    public void setCurrentRoom(Room1 room){this.currentRoom = room;}
-
     public Room1 getCurrentRoom(){return currentRoom;}
 
-    // metod för att kolla om spelare har nyckel
+    // metod för att kolla om spelare har nyckel i sitt inventory
     public boolean checkInvKey(){
         for (Item item : this.playerInv) {
             if (item.getItemID() == 3) {
@@ -51,6 +50,7 @@ public class Player {
         return false;
     }
 
+    // metod som tar bort den första nyckeln spelaren tar upp first in first out
     public void removeAKey(){
         for (Item item : this.playerInv) {
             if (item.getItemID() == 3) {
@@ -65,22 +65,21 @@ public class Player {
         // skapar ett rums variabel och hämtar nästa rum från dörren i riktningen "dir"
         Room1 nextRoom = currentRoom.getExit(dir);
         String command;
-
+        // Om det finns en dörr/rum åt riktningen "dir" och dörren inte är låst
         if (nextRoom != null && !currentRoom.checkLock(dir)){
-            // Om det finns en dörr/rum åt riktningen "dir" och dörren inte är låst
-            // ändra currentRoom till nextRoom och skriv ut nextRoom "Narrative"
+            //
             if (nextRoom.getMonster() != null){
                 nextRoom.doBattle(this);
                 if (this.playerHp > 0){
+                    // ändra currentRoom till nextRoom och skriv ut nextRoom "Narrative"
                     currentRoom = nextRoom;
                     nextRoom.doNarrative();
                 }
-            }
-            else{
+            } else{
+                // ändra currentRoom till nextRoom och skriv ut nextRoom "Narrative"
                 currentRoom = nextRoom;
                 nextRoom.doNarrative();
             }
-            
         } else if (nextRoom != null && currentRoom.checkLock(dir)) {
             // använder metod checkLock för se om dörren är låst och skriver meddelande om sant
             System.out.println("Dörren är låst");
@@ -104,6 +103,7 @@ public class Player {
             currentRoom.doNarrative();
         }
     }
+
 
     public void addItem(Item item) {
         playerInv.add(item);

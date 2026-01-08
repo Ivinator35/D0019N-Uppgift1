@@ -113,10 +113,7 @@ public class DragonTreasure{
                 if (command.equals("p")) {
                     player.pickupItems(player.getCurrentRoom());
                     System.out.println("");
-                } /* else if (command.equals("q")) {
-                System.out.println("Spelet avslutas!");
-                break;
-                }*/
+                }
             }
 
             // toLowerCase används för att alla kommandon ska funka
@@ -129,6 +126,7 @@ public class DragonTreasure{
                 break;
             } else if (command.equals("i")) {
                 player.checkWeaponInv();
+                player.getCurrentRoom().doNarrative();
             } else {
                 player.move(command);
                 if (player.getCurrentRoom() == startingRoom) {
@@ -139,6 +137,7 @@ public class DragonTreasure{
                             break;
                         }
                     }
+
                 }
             }
         }
