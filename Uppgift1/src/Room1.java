@@ -128,17 +128,8 @@ public class Room1 {
         }
     }
 
-    public void pickupItems(Player player) {
-        for (Item item : roomItems) {
-            switch (item.getItemID()) {
-                case 1:
-                    player.addWeapon(item);
-                case 2:
-                    player.addItem(item);
-                    break; 
-            }
-        }
+    public void removeItems() {
+        this.roomItems.clear();
     }
-
     
 }

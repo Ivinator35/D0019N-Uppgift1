@@ -31,6 +31,10 @@ public class Player {
         return this.playerDmg;
     }
 
+    public ArrayList<Item> getPlayerInv() {
+        return this.playerInv;
+    }
+
     public void setPlayerHP(int hp) {this.playerHp = hp;}
 
     public void setCurrentRoom(Room1 room){this.currentRoom = room;}
@@ -56,29 +60,7 @@ public class Player {
             currentRoom = nextRoom;
             nextRoom.doNarrative();
 
-            if (!nextRoom.getRoomItems().isEmpty()) {
-                System.out.println("Vill du plocka upp föremålen, tryck 'p'");
-                command = this.input.nextLine().toLowerCase();
-                
-                if (command.equals("p")) {
-                    for (Item item : nextRoom.getRoomItems()) {
-                        switch (item.getItemID()) {
-                            case 1:
-                                addWeapon(item);
-                                break; 
-                            case 2:
-                                addItem(item);
-                                break;
-                            case 3:
-                                addItem(item);
-                                break;
-                            case 4:
-                                addItem(item);
-                                break;
-            }
-        }
-                }
-            }
+            
         } else if (nextRoom != null && currentRoom.checkLock(dir)) {
             // använder metod checkLock för se om dörren är låst och skriver meddelande om sant
             System.out.println("Dörren är låst");
@@ -112,7 +94,7 @@ public class Player {
             this.currentWeapon = weapon; 
         } else {
             playerInv.add(weapon);
-            System.out.println("Du fick ett nytt vapen. För att byta till det tryck i."); 
+            System.out.println("Du fick ett nytt vapen. För att byta till det tryck 'i'."); 
         }
     }
 
@@ -153,12 +135,15 @@ public class Player {
                     case 1:
                         currentWeapon = input;
                         this.playerDmg = currentWeapon.getAmp();
+                        System.out.println("Du använder nu " + input.getItemName() + ".");
                         break; 
                     case 2: 
                         if (this.playerHp + input.getAmp() > 10) {
                             this.playerHp = 10;
+                            System.out.println("Du fick tillbaka " + (10 - this.playerHp) + " HP.");
                         } else {
                             this.playerHp = this.playerHp + input.getAmp();
+                            System.out.println("Du fick tillbaka " + input.getAmp() + " HP.");
                         }
                         break; 
                     case 3:
@@ -173,5 +158,26 @@ public class Player {
             System.out.println("Skriv respektive siffra!");
         }
 
+    }
+
+    public void pickupItems(Room1 room) {
+        for (Item item : room.getRoomItems()) {
+            switch (item.getItemID()) {
+                case 1:
+                    addWeapon(item);
+                    break; 
+                case 2:
+                    addItem(item);
+                    break;
+                case 3:
+                    addItem(item);
+                    break;
+                case 4:
+                    addItem(item);
+                    break;
+            }
+        }
+
+        room.removeItems();
     }
 }

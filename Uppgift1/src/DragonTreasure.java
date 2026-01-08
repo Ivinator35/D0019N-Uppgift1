@@ -15,6 +15,7 @@ public class DragonTreasure{
         Room1 rum1 = new Room1("Rum1");
         Room1 rum2 = new Room1("Rum2");
 
+
         // Skapar dörrar/"exits"
         entre.setExits("n", rum1, false);
         rum1.setExits("n", rum2, true);
@@ -39,23 +40,50 @@ public class DragonTreasure{
         player = new Player(name, entre);
 
         System.out.println("Välkommen " + player.getPlayerName() + " använd [n],[s],[e],[w] för att navigera i grottan.");
-        System.out.println("Skriv [q] för att avsluta spelet.");
+        System.out.println("Skriv [q] för att avsluta spelet.\nSkriv [i] för att öppna ditt förråd.");
         entre.doNarrative();
     }
 
     // While loop som kör spelet, anropar metoden move() om input inte är "q"
     public void playGame() {
-        while (true && player.getPlayerHP() > 0) {
+        String command;
+        
+        Room1 startingRoom = player.getCurrentRoom();
+
+        while (player.getPlayerHP() > 0) {
+            if (!player.getCurrentRoom().getRoomItems().isEmpty()) {
+                System.out.println("Vill du plocka upp föremålen, tryck 'p'");
+                command = this.input.nextLine().toLowerCase();
+                
+                if (command.equals("p")) {
+                    player.pickupItems(player.getCurrentRoom());
+                } else if (command.equals("q")) {
+                System.out.println("Spelet avslutas!");
+                break;
+                }
+            }
+
             // toLowerCase används för att alla kommandon ska funka
             System.out.print("Vilken dörr väljer du? > ");
-            String command = input.nextLine().toLowerCase();
+            command = input.nextLine().toLowerCase();
 
             // "==" fungerade inte så behövde använda ".equals()"
             if (command.equals("q")) {
                 System.out.println("Spelet avslutas!");
                 break;
+            } else if (command.equals("i")) {
+                player.checkWeaponInv();
             } else {
                 player.move(command);
+                if (player.getCurrentRoom() == startingRoom) {
+                    for (Item item : player.getPlayerInv()) {
+                        if (item.getItemID() == 4) {
+                            printDragonTreasure();
+                            System.out.println("Du lämnar grottan med skatten. Grattis, du vann!");
+                            break;
+                        }
+                    }
+                }
             }
         }
     }
