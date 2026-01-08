@@ -37,8 +37,7 @@ public class DragonTreasure{
 
     // While loop som kör spelet, anropar metoden move() om input inte är "q"
     public void playGame() {
-        boolean playing = true;
-        while (playing) {
+        while (true) {
             // toLowerCase används för att alla kommandon ska funka
             System.out.print("Vilken dörr väljer du? > ");
             String command = input.nextLine().toLowerCase();
@@ -46,7 +45,7 @@ public class DragonTreasure{
             // "==" fungerade inte så behövde använda ".equals()"
             if (command.equals("q")) {
                 System.out.println("Spelet avslutas!");
-                playing = false;
+                break;
             } else {
                 player.move(command);
             }

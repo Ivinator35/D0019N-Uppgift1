@@ -61,7 +61,7 @@ public class Player {
         potionInv.add(potion);
     }
 
-    public void addWeapon(Weapon weapon) {
+    public void addWeapon(Item weapon) {
         if (currentWeapon == null) {
             weaponInv.add(weapon);
             this.playerDmg = weapon.getAmp();

@@ -58,6 +58,12 @@ public class Room1 {
                 System.out.println("Det finns en låst dörr åt [" + dir + "]");
             }
         }
+
+        if (!roomItems.isEmpty()) {
+            for (Item item : roomItems) {
+                System.out.println(item.getItemDesc());
+            }
+        }
         System.out.println(" ");
 
     }
@@ -81,6 +87,17 @@ public class Room1 {
     public void showItems() {
         for (Item item : roomItems) {
             System.out.println(item.getItemDesc());
+        }
+    }
+
+    public void pickupItems(Player player) {
+        for (Item item : roomItems) {
+            switch (item.getItemID()) {
+                case 1:
+                    player.addWeapon(item);
+                case 2:
+                    player.addPotion(item);
+            }
         }
     }
 
