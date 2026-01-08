@@ -52,7 +52,7 @@ public class Room1 {
 
     // Vi antar att det bara kan vara ett monster per rum
     public void doBattle(Player player){
-            System.out.println(monster.getName() + " har kommit!");
+            System.out.println("\n" + monster.getName() + " har kommit!");
             System.out.println(monster.getMonsterDesc() +"\n");
             while (monster.getHP() > 0 && player.getPlayerHP() > 0){
                 monster.setHP(monster.getHP() - player.getPlayerDMG());

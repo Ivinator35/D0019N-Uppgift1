@@ -3,7 +3,6 @@ public class Weapon extends Item{
     
     public Weapon(String name, String desc, int dmg){
         super(name, desc);
-        this.setItemDesc(desc);
         this.setItemId(1);
         this.dmgAmp = dmg;
     }
