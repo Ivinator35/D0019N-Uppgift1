@@ -53,11 +53,19 @@ public class Player {
                 currentRoom = nextRoom;
                 nextRoom.doNarrative();
             }
-            currentRoom = nextRoom;
-            nextRoom.doNarrative();
         } else if (nextRoom != null && currentRoom.checkLock(dir)) {
             // använder metod checkLock för se om dörren är låst och skriver meddelande om sant
             System.out.println("Dörren är låst");
+            boolean temp = true; // ersätt med metod för att se om player har nyckel
+            if (temp == true){
+                System.out.print("Du har en nyckel som kan öppna dörren, vill du använda den? [Y/N] > ");
+                String command = input.nextLine().toLowerCase();
+                if (command.equals("y")){
+                    // lägg in -- Remove key from inventory
+                    currentRoom.unlockDoors(dir);
+                    move(dir);
+                }
+            }
             currentRoom.doNarrative();
         } else {
             // skrivs ut om det inte finns någon dörr eller om man skrivit något annat än n,s,e eller w
