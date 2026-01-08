@@ -36,6 +36,13 @@ public class Room1 {
         return door.getNextRoom();
     }
 
+    public void unlockDoors(String dir){
+        if (roomExits.get(dir) != null) {
+            roomExits.get(dir).unlock();
+            this.getExit(dir).roomExits.get(oppositeDir(dir)).unlock();
+        }
+    }
+
     // "Getter" som kollar om en dörr i en specifik riktning är låst,
     // krävdes felhantering för null returns
     public boolean checkLock(String dir){
@@ -133,10 +140,13 @@ public class Room1 {
             switch (item.getItemID()) {
                 case 1:
                     player.addWeapon(item);
-                    break; 
                 case 2:
+<<<<<<< HEAD
                     player.addItem(item);
                     break; 
+=======
+                    player.addPotion(item);
+>>>>>>> 5ac8b85b8671f3a664e5bae43cddd5824a9c2ba0
             }
         }
     }

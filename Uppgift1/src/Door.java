@@ -22,4 +22,8 @@ public class Door {
         this.isLocked = false;
     }
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 5ac8b85b8671f3a664e5bae43cddd5824a9c2ba0
