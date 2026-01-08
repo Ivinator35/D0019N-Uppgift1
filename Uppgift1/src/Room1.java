@@ -106,13 +106,6 @@ public class Room1 {
 
     }
 
-    public void unlockDoors(String dir){
-        if (roomExits.get(dir) != null) {
-            roomExits.get(dir).unlock();
-            this.getExit(dir).roomExits.get(oppositeDir(dir)).unlock();
-        }
-    }
-
     // simpel string metod för att hitta motsatt riktning,
     // används för att lätt kunna skapa dörrar åt två håll
     private String oppositeDir(String dir){
@@ -141,12 +134,8 @@ public class Room1 {
                 case 1:
                     player.addWeapon(item);
                 case 2:
-<<<<<<< HEAD
                     player.addItem(item);
                     break; 
-=======
-                    player.addPotion(item);
->>>>>>> 5ac8b85b8671f3a664e5bae43cddd5824a9c2ba0
             }
         }
     }

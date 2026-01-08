@@ -53,7 +53,6 @@ public class Player {
                 currentRoom = nextRoom;
                 nextRoom.doNarrative();
             }
-<<<<<<< HEAD
             currentRoom = nextRoom;
             nextRoom.doNarrative();
 
@@ -80,31 +79,20 @@ public class Player {
         }
                 }
             }
-=======
->>>>>>> 5ac8b85b8671f3a664e5bae43cddd5824a9c2ba0
         } else if (nextRoom != null && currentRoom.checkLock(dir)) {
             // använder metod checkLock för se om dörren är låst och skriver meddelande om sant
             System.out.println("Dörren är låst");
             boolean temp = true; // ersätt med metod för att se om player har nyckel
             if (temp == true){
                 System.out.print("Du har en nyckel som kan öppna dörren, vill du använda den? [Y/N] > ");
-<<<<<<< HEAD
                 command = input.nextLine().toLowerCase();
-=======
-                String command = input.nextLine().toLowerCase();
->>>>>>> 5ac8b85b8671f3a664e5bae43cddd5824a9c2ba0
                 if (command.equals("y")){
                     // lägg in -- Remove key from inventory
                     currentRoom.unlockDoors(dir);
                     move(dir);
                 }
-<<<<<<< HEAD
             }
             currentRoom.doNarrative();
-=======
-                else{currentRoom.doNarrative();}
-            }
->>>>>>> 5ac8b85b8671f3a664e5bae43cddd5824a9c2ba0
         } else {
             // skrivs ut om det inte finns någon dörr eller om man skrivit något annat än n,s,e eller w
             System.out.println("Du kan inte gå i denna riktning!");
